@@ -1,0 +1,107 @@
+.
+├── babylon.d.ts
+├── docs
+│   ├── assets
+│   │   ├── game.jpg
+│   │   └── upload_files.jpg
+│   ├── includes
+│   │   └── menu.html.js
+│   ├── index.html
+│   ├── pages
+│   │   ├── about_code.html
+│   │   ├── changing.html
+│   │   ├── contact.html
+│   │   ├── level_class.html
+│   │   ├── licenses.html
+│   │   ├── log_class.html
+│   │   ├── modifying.html
+│   │   ├── more.html
+│   │   ├── publishing.html
+│   │   ├── running.html
+│   │   └── ui_class.html
+│   └── source
+│       ├── docs.js
+│       ├── side-menu.css
+│       ├── style.css
+│       └── ui.js
+├── jsconfig.json
+├── package.json
+├── public
+│   ├── assets
+│   │   ├── images
+│   │   │   ├── arrow.png
+│   │   │   ├── background.jpg
+│   │   │   ├── grass.jpg
+│   │   │   ├── gunsight.png
+│   │   │   └── sand.jpg
+│   │   ├── models
+│   │   │   ├── skull
+│   │   │   │   ├── skull.babylon
+│   │   │   │   ├── skull.obj
+│   │   │   │   └── skull2.obj
+│   │   │   └── weapons
+│   │   │       ├── rifle
+│   │   │       │   ├── armAO.png
+│   │   │       │   ├── armNormal.png
+│   │   │       │   ├── armcolor.png
+│   │   │       │   ├── armsSpecular.png
+│   │   │       │   ├── rifle.bin
+│   │   │       │   ├── rifle.gltf
+│   │   │       │   ├── rifleColor.png
+│   │   │       │   ├── rifleMetallic.png
+│   │   │       │   ├── rifleNormal.png
+│   │   │       │   └── rifleSpecular.png
+│   │   │       ├── shotgun.mtl
+│   │   │       └── shotgun.obj
+│   │   ├── musics
+│   │   │   └── music.mp3
+│   │   ├── skybox
+│   │   │   ├── skybox_nx.jpg
+│   │   │   ├── skybox_ny.jpg
+│   │   │   ├── skybox_nz.jpg
+│   │   │   ├── skybox_px.jpg
+│   │   │   ├── skybox_py.jpg
+│   │   │   └── skybox_pz.jpg
+│   │   └── sounds
+│   │       ├── damage.wav
+│   │       ├── empty.wav
+│   │       ├── monster_attack.wav
+│   │       ├── reload.mp3
+│   │       └── shotgun.wav
+│   ├── build
+│   │   ├── app.js
+│   │   ├── mix-manifest.json
+│   │   └── vendor.js
+│   ├── index.html
+│   └── options.js
+├── readme.md
+├── src
+│   ├── Game.js
+│   ├── app.js
+│   ├── base
+│   │   ├── AssetsDatabase.js
+│   │   ├── Helper.js
+│   │   ├── Level.js
+│   │   ├── Log.js
+│   │   └── UI.js
+│   ├── game
+│   │   ├── Enemy.js
+│   │   ├── Player.js
+│   │   ├── Weapon.js
+│   │   └── levels
+│   │       ├── CreditsLevel.js
+│   │       ├── FirstLevel.js
+│   │       └── HomeMenuLevel.js
+│   └── libs
+│       ├── babylon.addons.js
+│       ├── babylon.glTF2FileLoader.js
+│       ├── babylon.gui.js
+│       ├── babylon.max.js
+│       ├── babylon.objFileLoader.js
+│       ├── babylonjs.proceduralTextures.js
+│       ├── cannon.js
+│       └── hammer.min.js
+├── tree.txt
+└── webpack.mix.js
+
+22 directories, 83 files
