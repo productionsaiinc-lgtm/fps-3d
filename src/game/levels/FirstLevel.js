@@ -28,20 +28,20 @@ export default class FirstLevel extends Level {
 
     setupAssets() {
 
-        this.assets.addAnimatedMesh('rifle', '/assets/models/weapons/rifle/rifle.gltf', {
+        this.assets.addAnimatedMesh('rifle', 'assets/models/weapons/rifle/rifle.gltf', {
             'normalized': true, // Normalize all rifle animations
             'start': 0,
             'end': 207
         });
         
-        this.assets.addMergedMesh('enemy', '/assets/models/skull/skull2.obj');
+        this.assets.addMergedMesh('enemy', 'assets/models/skull/skull2.obj');
 
-        this.assets.addMusic('music', '/assets/musics/music.mp3', {volume: 0.1});
-        this.assets.addSound('shotgun', '/assets/sounds/shotgun.wav', { volume: 0.4 });
-        this.assets.addSound('reload', '/assets/sounds/reload.mp3', { volume: 0.4 });
-        this.assets.addSound('empty', '/assets/sounds/empty.wav', { volume: 0.4 });
-        this.assets.addSound('monsterAttack', '/assets/sounds/monster_attack.wav', { volume: 0.3 });
-        this.assets.addSound('playerDamaged', '/assets/sounds/damage.wav', { volume: 0.3 });
+        this.assets.addMusic('music', 'assets/musics/music.mp3', {volume: 0.1});
+        this.assets.addSound('shotgun', 'assets/sounds/shotgun.wav', { volume: 0.4 });
+        this.assets.addSound('reload', 'assets/sounds/reload.mp3', { volume: 0.4 });
+        this.assets.addSound('empty', 'assets/sounds/empty.wav', { volume: 0.4 });
+        this.assets.addSound('monsterAttack', 'assets/sounds/monster_attack.wav', { volume: 0.3 });
+        this.assets.addSound('playerDamaged', 'assets/sounds/damage.wav', { volume: 0.3 });
         
     }
 
@@ -95,7 +95,7 @@ export default class FirstLevel extends Level {
         ground.checkCollisions = true;
         
         let groundMaterial = new BABYLON.StandardMaterial('groundMaterial', this.scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture('/assets/images/sand.jpg', this.scene);
+        groundMaterial.diffuseTexture = new BABYLON.Texture('assets/images/sand.jpg', this.scene);
         groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
 
         ground.material = groundMaterial;
@@ -146,7 +146,7 @@ export default class FirstLevel extends Level {
     createHUD() {
         var hud = new UI('levelUI');
         
-        hud.addImage('gunsight', '/assets/images/gunsight.png', {
+        hud.addImage('gunsight', 'assets/images/gunsight.png', {
             'width': 0.05,
             'height': 0.05
         });
