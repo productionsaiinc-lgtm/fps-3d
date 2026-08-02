@@ -4,13 +4,8 @@ export default class Level {
 
     constructor() {
         
-        /**
-         * We can use this object to store materials that can be reused along the game
-         */
         this.materials = {};
-
         this.scene = null;
-
         this.assets = null;
 
     }
@@ -27,10 +22,8 @@ export default class Level {
     }
 
     createScene() {
-        // Create the scene space
         this.scene = new BABYLON.Scene(GAME.engine);
 
-        // Add assets management and execute beforeRender after finish
         this.assets = new AssetsDatabase(this.scene, () => {
 
             GAME.log.debug('Level Assets loaded');
@@ -41,7 +34,6 @@ export default class Level {
                 GAME.log.debugWarning('You can add the buildScene method to your level to define your scene');
             }
 
-            // If has the beforeRender method
             if(this.beforeRender) {
                 this.scene.registerBeforeRender(
                     this.beforeRender.bind(this)
@@ -59,14 +51,12 @@ export default class Level {
             this.setupAssets();
         }
 
-        // Load the assets
         this.assets.load();
 
         return this.scene;
     }
 
     exit() {
-        // Fix to blur the canvas to avoid issues with keyboard input
         GAME.canvas.blur();
 
         GAME.stopRenderLoop();
@@ -79,13 +69,6 @@ export default class Level {
         this.scene = null;
     }
 
-    /**
-     * Adds a collider to the level scene. It will fire the options.onCollide callback
-     * when the collider intersects options.collisionMesh. It can be used to fire actions when
-     * player enters an area for example.
-     * @param {*} name 
-     * @param {*} options 
-     */
     addCollider(name, options) {
         
         let collider = BABYLON.MeshBuilder.CreateBox(name, {
@@ -94,7 +77,6 @@ export default class Level {
             depth: options.depth || 1
         }, this.scene);
 
-        // Add a tag to identify the object as collider and to simplify group operations (like dispose)
         BABYLON.Tags.AddTagsTo(collider, 'collider boxCollider');
 
         collider.position.x = options.positionX || 0;
@@ -122,12 +104,10 @@ export default class Level {
                 },
                 () => { 
 
-                    // Runs onCollide callback if exists
                     if(options.onCollide) {
                         options.onCollide();
                     }
                     
-                    // If true, will dispose the collider after timeToDispose
                     if(options.disposeAfterCollision) {
                         setTimeout(() => {
                             collider.dispose();
@@ -165,14 +145,6 @@ export default class Level {
         }
     }
 
-    /**
-     * Interpolate a value inside the Level Scene using the BABYLON Action Manager
-     * @param {*} target The target object
-     * @param {*} property The property in the object to interpolate
-     * @param {*} toValue The final value of interpolation
-     * @param {*} duration The interpolation duration in milliseconds
-     * @param {*} afterExecutionCallback Callback executed after ther interpolation ends
-     */
     interpolate(target, property, toValue, duration, afterExecutionCallback = null) {
 
         if(!this.scene.actionManager) {
@@ -197,9 +169,6 @@ export default class Level {
         
     }
 
-    /**
-     * Enable pointer lock
-     */
     enablePointerLock() {
         let canvas = GAME.canvas;
         
@@ -207,7 +176,10 @@ export default class Level {
             console.error('You need to add a camera to the level to enable pointer lock');
         }
 
-        // On click event, request pointer lock
+        if (GAME.isMobile()) {
+            return;
+        }
+
         canvas.addEventListener("click", function(evt) {
             canvas.requestPointerLock = canvas.requestPointerLock || canvas.msRequestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
             if (canvas.requestPointerLock) {
@@ -215,14 +187,12 @@ export default class Level {
             }
         }, false);
 
-        // Event listener when the pointerlock is updated (or removed by pressing ESC for example).
         var pointerlockchange = (event) => {
             this.controlEnabled = (
                             document.mozPointerLockElement === canvas
                             || document.webkitPointerLockElement === canvas
                             || document.msPointerLockElement === canvas
                             || document.pointerLockElement === canvas);
-            // If the user is alreday locked
             if (!this.controlEnabled) {
                 this.camera.detachControl(canvas);
             } else {
@@ -230,7 +200,6 @@ export default class Level {
             }
         };
 
-        // Attach events to the document
         document.addEventListener("pointerlockchange", pointerlockchange, false);
         document.addEventListener("mspointerlockchange", pointerlockchange, false);
         document.addEventListener("mozpointerlockchange", pointerlockchange, false);
