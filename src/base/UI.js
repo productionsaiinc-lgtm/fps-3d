@@ -1,4 +1,4 @@
-3export default class UI {
+export default class UI {
 
     constructor(uiName) {
         this.currentControlID = 0;
