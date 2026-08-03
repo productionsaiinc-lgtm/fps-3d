@@ -11,6 +11,7 @@ export default class FirstLevel extends Level {
         this.menu = null;
         this.weapon = null;
         this.ammoBox = null;
+        this.mapRoot = null;
 
         this.player = new Player(this);
         this.playerMesh = null;
@@ -43,7 +44,7 @@ export default class FirstLevel extends Level {
         
     }
 
-    buildScene() {
+    async buildScene() {
         
         this.scene.clearColor = new BABYLON.Color3.FromHexString('#777');
         
@@ -70,6 +71,8 @@ export default class FirstLevel extends Level {
         
         this.createGround();
         this.addWeapon();
+
+        await this.addMap();
         
         this.addEnemies();
 
@@ -94,6 +97,26 @@ export default class FirstLevel extends Level {
         groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
 
         ground.material = groundMaterial;
+    }
+
+    async addMap() {
+        const result = await BABYLON.SceneLoader.ImportMeshAsync(
+            "",
+            "assets/maps/",
+            "scene1.glb",
+            this.scene
+        );
+
+        const root = result.meshes[0];
+        root.position = new BABYLON.Vector3(0, 0, 0);
+        root.scaling = new BABYLON.Vector3(1, 1, 1);
+
+        result.meshes.forEach(mesh => {
+            mesh.checkCollisions = true;
+            mesh.receiveShadows = true;
+        });
+
+        this.mapRoot = root;
     }
 
     addWeapon() {
@@ -220,7 +243,7 @@ export default class FirstLevel extends Level {
 
     createCamera() {
         var camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 3.5, 100), this.scene);
-        camera.setTarget(new BABYLON.Vector3(0, 2, 0));
+        camera.setTarget(new BABYLON.Vector3(0,2,0));
         
         camera.attachControl(GAME.canvas, true);
         
@@ -228,8 +251,6 @@ export default class FirstLevel extends Level {
         camera.ellipsoid = new BABYLON.Vector3(1, 1.7, 1);
         camera.checkCollisions = true;
         camera._needMoveForGravity = true;
-
-        this.addEnemies();
 
         camera.minZ = 0;
 
@@ -292,7 +313,7 @@ export default class FirstLevel extends Level {
 
         this.ammoBox.checkCollisions = true;
         
-        var arrowSpriteManager = new BABYLON.SpriteManager('arrowSpriteManager','assets/images/arrow.png', 1, 256, this.scene);
+        var arrowSpriteManager = new BABYLON.SpriteManager('arrowSpriteManager', 'assets/images/arrow.png', 1, 256, this.scene);
         this.ammoBox.arrow = new BABYLON.Sprite('arrow', arrowSpriteManager);
         this.ammoBox.arrow.position.y = 5;
         this.ammoBox.arrow.size = 4;
