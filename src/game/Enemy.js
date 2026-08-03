@@ -132,3 +132,4 @@ export default class Enemy {
     }
 
 }
+
