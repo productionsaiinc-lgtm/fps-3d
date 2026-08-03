@@ -1,9 +1,9 @@
+import "@babylonjs/loaders";
 import Enemy from '../Enemy';
 import UI from '../../base/UI';
 import Weapon from '../Weapon';
 import Player from '../Player';
 import Level from '../../base/Level';
-import "@babylonjs/loaders/glTF";
 
 export default class FirstLevel extends Level {
 
