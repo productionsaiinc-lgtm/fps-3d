@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "cross-env": "^5.2.0",
-    "laravel-mix": "^4.0.13"
+    "laravel-mix": "^4.0.13",
     "@babylonjs/loaders": "^7.32.0"
   },
   "devDependencies": {
