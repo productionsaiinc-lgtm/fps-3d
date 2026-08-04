@@ -34,7 +34,7 @@ export default class FirstLevel extends Level {
             'end': 207
         });
         
-        this.assets.addMergedMesh('enemy', 'assets/models/skull/skull2.obj');
+        this.assets.addMergedMesh('enemy', 'assets/models/enemies/soldier2.glb');
 
         this.assets.addMusic('music', 'assets/musics/music.mp3', { volume: 0.1 });
         this.assets.addSound('shotgun', 'assets/sounds/shotgun.wav', { volume: 0.4 });
