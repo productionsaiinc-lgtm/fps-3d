@@ -29,6 +29,7 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "laravel-mix": "^4.0.13"
+    "@babylonjs/loaders"
   },
   "devDependencies": {
     "vue-template-compiler": "^2.5.21"
