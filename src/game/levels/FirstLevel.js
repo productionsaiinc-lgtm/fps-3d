@@ -1,9 +1,10 @@
-import "@babylonjs/loaders/glTF/2.0";
 import Enemy from '../Enemy';
 import UI from '../../base/UI';
 import Weapon from '../Weapon';
 import Player from '../Player';
 import Level from '../../base/Level';
+import { registerBuiltInLoaders } from "@babylonjs/loaders/dynamic";
+registerBuiltInLoaders();
 
 export default class FirstLevel extends Level {
 
