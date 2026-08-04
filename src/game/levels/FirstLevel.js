@@ -3,8 +3,7 @@ import UI from '../../base/UI';
 import Weapon from '../Weapon';
 import Player from '../Player';
 import Level from '../../base/Level';
-import { registerBuiltInLoaders } from "@babylonjs/loaders/dynamic";
-registerBuiltInLoaders();
+import "@babylonjs/loaders";
 
 export default class FirstLevel extends Level {
 
