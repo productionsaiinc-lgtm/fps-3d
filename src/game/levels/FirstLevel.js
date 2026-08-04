@@ -70,7 +70,7 @@ export default class FirstLevel extends Level {
         this.scene.activeCamera = this.camera;
         this.enablePointerLock();
         
-        this.createGround();
+     
         this.addWeapon();
 
         await this.addMap();
@@ -89,23 +89,12 @@ export default class FirstLevel extends Level {
         this.player.startTimeCounter();
     }
 
-    createGround() {
-        let ground = BABYLON.Mesh.CreateGround('ground', 500, 500, 2, this.scene);
-        ground.checkCollisions = true;
-        
-        let groundMaterial = new BABYLON.StandardMaterial('groundMaterial', this.scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture('assets/images/sand.jpg', this.scene);
-        groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-
-        ground.material = groundMaterial;
-    }
+   
 
     async addMap() {
     try {
         const result = await BABYLON.SceneLoader.ImportMeshAsync(
-            "",
-            "assets/maps/",
-            "catalina_island_3d_map.glb",
+            "assets/maps/catalina_island_3d_map.glb",
             this.scene
         );
 
