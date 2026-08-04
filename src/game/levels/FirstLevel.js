@@ -1,4 +1,4 @@
-import "@babylonjs/loaders";
+import "@babylonjs/loaders/glTF/2.0";
 import Enemy from '../Enemy';
 import UI from '../../base/UI';
 import Weapon from '../Weapon';
@@ -101,24 +101,36 @@ export default class FirstLevel extends Level {
     }
 
     async addMap() {
+    try {
         const result = await BABYLON.SceneLoader.ImportMeshAsync(
             "",
             "assets/maps/",
-            "scene1.glb",
+            "catalina_island_3d_map.glb",
             this.scene
         );
 
         const root = result.meshes[0];
-        root.position = new BABYLON.Vector3(0, 0, 0);
-        root.scaling = new BABYLON.Vector3(1, 1, 1);
+        if (root) {
+            const bounds = root.getHierarchyBoundingVectors(true);
+            const center = bounds.min.add(bounds.max).scale(0.5);
+
+            root.position = root.position.subtract(center);
+            root.rotation = BABYLON.Vector3.Zero();
+            root.scaling = new BABYLON.Vector3(1, 1, 1);
+            root.computeWorldMatrix(true);
+        }
 
         result.meshes.forEach(mesh => {
             mesh.checkCollisions = true;
+            mesh.isPickable = true;
             mesh.receiveShadows = true;
         });
 
-        this.mapRoot = root;
+        return result;
+    } catch (err) {
+        console.error("Map load failed:", err);
     }
+}
 
     addWeapon() {
         this.weapon = new Weapon(this);
