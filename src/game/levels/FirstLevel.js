@@ -48,22 +48,14 @@ export default class FirstLevel extends Level {
             new BABYLON.Vector3(0, -1, 0),
             this.scene
         );
-        dirLight.intensity = 0.3;
+        dirLight.intensity = 0.8;
 
         const hemiLight = new BABYLON.HemisphericLight(
             "HemiLight",
             new BABYLON.Vector3(0, 1, 0),
             this.scene
         );
-        hemiLight.intensity = 0.5;
-
-        const skybox = BABYLON.MeshBuilder.CreateBox("skyBox", { size: 1000 }, this.scene);
-        const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", this.scene);
-        skyboxMaterial.backFaceCulling = false;
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/skybox/skybox", this.scene);
-        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-        skyboxMaterial.disableLighting = true;
-        skybox.material = skyboxMaterial;
+        hemiLight.intensity = 1.0;
 
         this.scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
         this.scene.collisionsEnabled = true;
@@ -101,10 +93,13 @@ export default class FirstLevel extends Level {
             if (root) {
                 const bounds = root.getHierarchyBoundingVectors(true);
                 const center = bounds.min.add(bounds.max).scale(0.5);
+                const size = bounds.max.subtract(bounds.min);
+                const maxDim = Math.max(size.x, size.y, size.z) || 1;
+                const scale = 50 / maxDim;
 
                 root.position = root.position.subtract(center);
-                root.rotation = BABYLON.Vector3.Zero();
-                root.scaling = new BABYLON.Vector3(1, 1, 1);
+                root.scaling = new BABYLON.Vector3(scale, scale, scale);
+                root.position.y = 0;
                 root.computeWorldMatrix(true);
             }
 
@@ -114,6 +109,7 @@ export default class FirstLevel extends Level {
                 mesh.receiveShadows = true;
             });
 
+            console.log("Map loaded:", result.meshes.length);
             return result;
         } catch (err) {
             console.error("Map load failed:", err);
@@ -244,11 +240,11 @@ export default class FirstLevel extends Level {
     createCamera() {
         const camera = new BABYLON.UniversalCamera(
             "UniversalCamera",
-            new BABYLON.Vector3(0, 3.5, 100),
+            new BABYLON.Vector3(0, 10, -30),
             this.scene
         );
 
-        camera.setTarget(new BABYLON.Vector3(0, 2, 0));
+        camera.setTarget(new BABYLON.Vector3(0, 0, 0));
         camera.attachControl(GAME.canvas, true);
 
         camera.applyGravity = true;
@@ -256,7 +252,8 @@ export default class FirstLevel extends Level {
         camera.checkCollisions = true;
         camera._needMoveForGravity = true;
 
-        camera.minZ = 0;
+        camera.minZ = 0.1;
+        camera.maxZ = 5000;
 
         camera.keysUp = [87, 38];
         camera.keysDown = [83, 40];
@@ -360,11 +357,7 @@ export default class FirstLevel extends Level {
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
         this.menu.show();
 
-        if (this.player.hasMadePointsRecord()) {
-            this.hasMadeRecordTextControl.isVisible = true;
-        } else {
-            this.hasMadeRecordTextControl.isVisible = false;
-        }
+        this.hasMadeRecordTextControl.isVisible = this.player.hasMadePointsRecord();
     }
 
     replay() {
@@ -380,7 +373,8 @@ export default class FirstLevel extends Level {
         GAME.resume();
         this.menu.hide();
 
-        this.camera.position = new BABYLON.Vector3(0, 3.5, 100);
+        this.camera.position = new BABYLON.Vector3(0, 10, -30);
+        this.camera.setTarget(new BABYLON.Vector3(0, 0, 0));
         this.weapon.reload();
         this.addEnemies();
 
@@ -397,4 +391,4 @@ export default class FirstLevel extends Level {
             }
         }
     }
-            }
+                     }
