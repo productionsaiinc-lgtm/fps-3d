@@ -1,9 +1,10 @@
+
 import Enemy from '../Enemy';
 import UI from '../../base/UI';
 import Weapon from '../Weapon';
 import Player from '../Player';
 import Level from '../../base/Level';
-import "@babylonjs/loaders";
+
 
 export default class FirstLevel extends Level {
 
@@ -58,7 +59,7 @@ export default class FirstLevel extends Level {
         var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", { size: 1000 }, this.scene);
         var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", this.scene);
         skyboxMaterial.backFaceCulling = false;
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/skybox/skybox", this.scene);
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/maps/catalina_island_3d_map.glb", this.scene);
         skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
         skyboxMaterial.disableLighting = true;
         skybox.material = skyboxMaterial;
