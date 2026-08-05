@@ -9,3 +9,4 @@ mix.setPublicPath('public/build')
       'src/libs/babylon.gui.js',
       'src/libs/babylon.addons.js',
    ], 'vendor.js');
+
