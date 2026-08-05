@@ -85,7 +85,7 @@ export default class FirstLevel extends Level {
             const result = await BABYLON.SceneLoader.ImportMeshAsync(
                 "",
                 "assets/maps/",
-                "catalina_island_3d_map.glb",
+                "neighborhood_freaky_clown__town_mystery.glb",
                 this.scene
             );
 
