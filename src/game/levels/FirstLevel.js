@@ -1,4 +1,3 @@
-
 import Enemy from '../Enemy';
 import UI from '../../base/UI';
 import Weapon from '../Weapon';
@@ -64,6 +63,18 @@ export default class FirstLevel extends Level {
         this.scene.ambientColor = new BABYLON.Color3(0.7, 0.7, 0.7);
         this.scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
         this.scene.collisionsEnabled = true;
+
+        const ground = BABYLON.MeshBuilder.CreateGround(
+            "debugGround",
+            { width: 200, height: 200 },
+            this.scene
+        );
+
+        const groundMat = new BABYLON.StandardMaterial("groundMat", this.scene);
+        groundMat.diffuseColor = new BABYLON.Color3(0.4, 0.7, 0.4);
+        ground.material = groundMat;
+        ground.checkCollisions = true;
+        ground.position.y = 0;
 
         this.camera = this.createCamera();
         this.scene.activeCamera = this.camera;
@@ -395,4 +406,4 @@ export default class FirstLevel extends Level {
             }
         }
     }
-                }
+}
