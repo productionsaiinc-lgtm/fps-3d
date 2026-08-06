@@ -48,15 +48,19 @@ export default class FirstLevel extends Level {
             new BABYLON.Vector3(0, -1, 0),
             this.scene
         );
-        dirLight.intensity = 0.8;
+        dirLight.intensity = 1.2;
 
         const hemiLight = new BABYLON.HemisphericLight(
             "HemiLight",
             new BABYLON.Vector3(0, 1, 0),
             this.scene
         );
-        hemiLight.intensity = 1.0;
+        hemiLight.intensity = 2.0;
+        hemiLight.diffuse = new BABYLON.Color3(1, 1, 1);
+        hemiLight.specular = new BABYLON.Color3(1, 1, 1);
+        hemiLight.groundColor = new BABYLON.Color3(0.6, 0.6, 0.6);
 
+        this.scene.ambientColor = new BABYLON.Color3(0.7, 0.7, 0.7);
         this.scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
         this.scene.collisionsEnabled = true;
 
@@ -109,7 +113,6 @@ export default class FirstLevel extends Level {
                 mesh.receiveShadows = true;
             });
 
-            console.log("Map loaded:", result.meshes.length);
             return result;
         } catch (err) {
             console.error("Map load failed:", err);
@@ -240,7 +243,7 @@ export default class FirstLevel extends Level {
     createCamera() {
         const camera = new BABYLON.UniversalCamera(
             "UniversalCamera",
-            new BABYLON.Vector3(0, 10, -30),
+            new BABYLON.Vector3(0, 20, -50),
             this.scene
         );
 
@@ -253,7 +256,7 @@ export default class FirstLevel extends Level {
         camera._needMoveForGravity = true;
 
         camera.minZ = 0.1;
-        camera.maxZ = 5000;
+        camera.maxZ = 10000;
 
         camera.keysUp = [87, 38];
         camera.keysDown = [83, 40];
@@ -373,7 +376,7 @@ export default class FirstLevel extends Level {
         GAME.resume();
         this.menu.hide();
 
-        this.camera.position = new BABYLON.Vector3(0, 10, -30);
+        this.camera.position = new BABYLON.Vector3(0, 20, -50);
         this.camera.setTarget(new BABYLON.Vector3(0, 0, 0));
         this.weapon.reload();
         this.addEnemies();
@@ -391,4 +394,4 @@ export default class FirstLevel extends Level {
             }
         }
     }
-                     }
+                }
